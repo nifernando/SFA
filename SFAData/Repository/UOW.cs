@@ -1,4 +1,5 @@
 ﻿using SFAContracts.IRepositories;
+using System.Threading.Tasks;
 
 namespace SFAData.Repository
 {
@@ -28,9 +29,9 @@ namespace SFAData.Repository
         //    }
         //}
 
-        public void Save()
+        public async Task<bool> SaveAsync()
         {
-            _dataContext.SaveChanges();
+          return await _dataContext.SaveChangesAsync() > 0 ? true : false;
         }
     }
 }

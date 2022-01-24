@@ -14,7 +14,7 @@ namespace SFAData.Repository
             _context = context;
         }
 
-        public async Task Add(T entity)
+        public async Task AddAsync(T entity)
         {
              await _context.Set<T>().AddAsync(entity);
         }
@@ -24,7 +24,7 @@ namespace SFAData.Repository
             _context.Set<T>().Remove(entity);
         }
 
-        public void Edit(T entity)
+        public void EditAsync(T entity)
         {
              _context.Set<T>().Update(entity);
         }

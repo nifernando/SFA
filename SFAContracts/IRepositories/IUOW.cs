@@ -9,6 +9,6 @@ namespace SFAContracts.IRepositories
    public interface IUOW
     {
         public IProductRepository ProductRepository { get; set; }
-        void Save();
+        Task<bool> SaveAsync();
     }
 }

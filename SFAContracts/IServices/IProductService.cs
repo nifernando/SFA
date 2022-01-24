@@ -9,6 +9,6 @@ namespace SFAContracts.IServices
 {
    public interface IProductService
     {
-        void Add(Product product);
+        Task<bool> AddAsync(Product product);
     }
 }

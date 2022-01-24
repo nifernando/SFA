@@ -20,11 +20,10 @@ namespace SFAService
             _uow = uow;
             _configuration = configuration;
         }
-        public void Add(Product product)
+        public async Task<bool> AddAsync(Product product)
         {
-            _uow.ProductRepository.Add(product);
-            string abc = _configuration.GetSection("appsettings")["URL"];
-            _uow.Save();
+            await _uow.ProductRepository.AddAsync(product);
+            return await _uow.SaveAsync();
         }
     }
 }

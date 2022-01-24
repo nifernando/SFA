@@ -12,8 +12,8 @@ namespace SFAContracts.IRepositories
         Task<T> FindAsync(int id);
         Task<IEnumerable<T>> FindAllAsync();
        
-        Task Add(T entity);
-        void Edit(T entity);
+        Task AddAsync(T entity);
+        void EditAsync(T entity);
         void Delete(T entity);
     }
 }
