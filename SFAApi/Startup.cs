@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SFAApi.Core;
 using SFAContracts.IRepositories;
 using SFAContracts.IServices;
 using SFAData;
@@ -40,6 +41,7 @@ namespace SFAApi
             services.AddDbContext<DataContext>( opt => {
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SFAApi", Version = "v1" });

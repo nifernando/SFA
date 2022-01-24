@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using SFAApi.Dto;
 using SFAContracts.IServices;
 using SFAModels;
 using System;
@@ -14,21 +17,35 @@ namespace SFAApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService,IMapper mapper)
         {
             _productService = productService;
+            _mapper = mapper;
         }
         [HttpPost]
-        public IActionResult POST()
+        public ActionResult<BaseControllerReturnObject> POST(ProductDto productDto)
         {
-            var product = new Product
+            var baseControllerReturnObject = new BaseControllerReturnObject();
+            if (ModelState.IsValid)
             {
-                Code = "001",
-                Description = "Gold Mari"
-            };
-            _productService.Add(product);
-            return Ok();
+                var product = _mapper.Map<Product>(productDto);
+                _productService.Add(product);
+                baseControllerReturnObject.StatusCode = StatusCodes.Status200OK;
+                baseControllerReturnObject.Message = "Op was success";
+                baseControllerReturnObject.Data = product;
+                return baseControllerReturnObject;
+            }
+            else
+            {
+                baseControllerReturnObject.StatusCode = StatusCodes.Status400BadRequest;
+                baseControllerReturnObject.Message = "Op was Failed";
+                baseControllerReturnObject.Data = productDto;
+            }
+       
+            return baseControllerReturnObject;
         }
     }
 }
