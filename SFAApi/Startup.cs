@@ -42,6 +42,10 @@ namespace SFAApi
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SFAApi", Version = "v1" });
